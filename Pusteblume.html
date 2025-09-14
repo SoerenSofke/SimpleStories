@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, orientation=landscape">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wortweise Navigation mit minimalem JavaScript</title>
     <style>
         html, body {
@@ -52,19 +52,6 @@
         .nav-btn:active {
             background: #1a1a1a;
         }
-        @media (orientation: portrait) {
-            body::before {
-                content: "Bitte drehen Sie Ihr Gerät ins Querformat.";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 1.5rem;
-                font-weight: bold;
-                color: #333;
-            }
-            .container { display: none; }
-        }
     </style>
 </head>
 <body>
@@ -95,6 +82,13 @@
         };
 
         updateDisplay();
+
+        // Automatisch ins Querformat drehen, sofern unterstützt
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock("landscape").catch(err => {
+                console.warn("Orientierung konnte nicht gesperrt werden:", err);
+            });
+        }
     </script>
 </body>
 </html>
