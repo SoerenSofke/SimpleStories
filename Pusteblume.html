@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Wortweise Navigation mit minimalem JavaScript</title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ececec;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px #aaa3;
+            padding: 40px;
+        }
+        .word-area {
+            flex: 1;
+            text-align: center;
+            font-size: 2.2rem;
+            padding: 0 2rem;
+            font-weight: bold;
+            color: #333;
+            min-width: 120px;
+        }
+        .nav-btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 54px;
+            height: 54px;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        .nav-btn:active {
+            background: #1a1a1a;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 12px; }
+            .nav-btn { width: 42px; height: 42px; font-size: 1.2rem; }
+            .word-area { font-size: 1.3rem; padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="nav-btn" id="prevBtn" aria-label="Vorheriges Wort">&#8592;</button>
+        <div id="wordArea" class="word-area"></div>
+        <button class="nav-btn" id="nextBtn" aria-label="Nächstes Wort">&#8594;</button>
+    </div>
+    <!-- Satz als String in einem einzigen Element -->
+    <span id="sentence" style="display:none;">Das ist ein schöner Tag für HTMX</span>
+    <script>
+        // Satz aus Element holen und in Wörter aufteilen
+        const sentence = document.getElementById("sentence").textContent.trim();
+        const words = sentence.split(" ");
+        let index = 0;
+
+        function updateDisplay() {
+            document.getElementById("wordArea").textContent = words[index];
+        }
+
+        document.getElementById("prevBtn").onclick = function() {
+            if (index > 0) index--;
+            updateDisplay();
+        };
+
+        document.getElementById("nextBtn").onclick = function() {
+            if (index < words.length - 1) index++;
+            updateDisplay();
+        };
+
+        // Initial anzeigen
+        updateDisplay();
+    </script>
+</body>
+</html>
