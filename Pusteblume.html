@@ -17,6 +17,10 @@
             align-items: center;
             justify-content: center;
             background: #ececec;
+            transform: rotate(90deg);
+            transform-origin: center center;
+            height: 100vw;
+            width: 100vh;
         }
         .container {
             display: flex;
@@ -26,8 +30,8 @@
             border-radius: 12px;
             box-shadow: 0 2px 16px #aaa3;
             padding: 40px;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
         }
         .word-area {
             flex: 1;
@@ -82,13 +86,6 @@
         };
 
         updateDisplay();
-
-        // Automatisch ins Querformat drehen, sofern unterstützt
-        if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock("landscape").catch(err => {
-                console.warn("Orientierung konnte nicht gesperrt werden:", err);
-            });
-        }
     </script>
 </body>
 </html>
