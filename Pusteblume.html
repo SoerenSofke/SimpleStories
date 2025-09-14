@@ -17,10 +17,15 @@
             align-items: center;
             justify-content: center;
             background: #ececec;
+        }
+        .rotated-wrapper {
             transform: rotate(90deg);
             transform-origin: center center;
-            height: 100vw;
             width: 100vh;
+            height: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .container {
             display: flex;
@@ -30,8 +35,9 @@
             border-radius: 12px;
             box-shadow: 0 2px 16px #aaa3;
             padding: 40px;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: auto;
+            box-sizing: border-box;
         }
         .word-area {
             flex: 1;
@@ -59,10 +65,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <button class="nav-btn" id="prevBtn" aria-label="Vorheriges Wort">&#8592;</button>
-        <div id="wordArea" class="word-area"></div>
-        <button class="nav-btn" id="nextBtn" aria-label="Nächstes Wort">&#8594;</button>
+    <div class="rotated-wrapper">
+        <div class="container">
+            <button class="nav-btn" id="prevBtn" aria-label="Vorheriges Wort">&#8592;</button>
+            <div id="wordArea" class="word-area"></div>
+            <button class="nav-btn" id="nextBtn" aria-label="Nächstes Wort">&#8594;</button>
+        </div>
     </div>
     <!-- Satz als String in einem einzigen Element -->
     <span id="sentence" style="display:none;">Das ist ein schöner Tag für HTMX</span>
