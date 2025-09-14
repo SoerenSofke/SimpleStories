@@ -2,10 +2,17 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, orientation=landscape">
     <title>Wortweise Navigation mit minimalem JavaScript</title>
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
         body {
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -19,11 +26,13 @@
             border-radius: 12px;
             box-shadow: 0 2px 16px #aaa3;
             padding: 40px;
+            width: 100vw;
+            height: 100vh;
         }
         .word-area {
             flex: 1;
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 4vw;
             padding: 0 2rem;
             font-weight: bold;
             color: #333;
@@ -34,19 +43,27 @@
             color: #fff;
             border: none;
             border-radius: 50%;
-            width: 54px;
-            height: 54px;
-            font-size: 2rem;
+            width: 8vh;
+            height: 8vh;
+            font-size: 4vh;
             cursor: pointer;
             user-select: none;
         }
         .nav-btn:active {
             background: #1a1a1a;
         }
-        @media (max-width: 480px) {
-            .container { padding: 12px; }
-            .nav-btn { width: 42px; height: 42px; font-size: 1.2rem; }
-            .word-area { font-size: 1.3rem; padding: 0 1rem; }
+        @media (orientation: portrait) {
+            body::before {
+                content: "Bitte drehen Sie Ihr Gerät ins Querformat.";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #333;
+            }
+            .container { display: none; }
         }
     </style>
 </head>
@@ -59,7 +76,6 @@
     <!-- Satz als String in einem einzigen Element -->
     <span id="sentence" style="display:none;">Das ist ein schöner Tag für HTMX</span>
     <script>
-        // Satz aus Element holen und in Wörter aufteilen
         const sentence = document.getElementById("sentence").textContent.trim();
         const words = sentence.split(" ");
         let index = 0;
@@ -78,7 +94,6 @@
             updateDisplay();
         };
 
-        // Initial anzeigen
         updateDisplay();
     </script>
 </body>
