@@ -1,116 +1,83 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wortweise Navigation mit schwarzen Dreiecks-Buttons</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            font-family: Verdana, Geneva, sans-serif;
-        }
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #ececec;
-        }
-        .rotated-wrapper {
-            transform: rotate(90deg);
-            transform-origin: center center;
-            width: 100vh;
-            height: 100vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 16px #aaa3;
-            padding: 40px;
-            width: 95%;
-            height: 20%;
-            box-sizing: border-box;
-        }
-        .word-area {
-            flex: 1;
-            text-align: center;
-            font-size: 8vw;
-            padding: 0 2rem;
-            font-weight: bold;
-            color: #333;
-            min-width: 120px;
-        }
-        .nav-btn {
-            background: transparent;
-            border: none;
-            width: 16vh;
-            height: 16vh;
-            font-size: 0;
-            cursor: pointer;
-            user-select: none;
-            position: relative;
-        }
-        .nav-btn:after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 0;
-            height: 0;
-            border-style: solid;
-        }
-        #prevBtn:after {
-            border-width: 3vh 5vh 3vh 0;
-            border-color: transparent #000 transparent transparent;
-        }
-        #nextBtn:after {
-            border-width: 3vh 0 3vh 5vh;
-            border-color: transparent transparent transparent #000;
-        }
-        .nav-btn:active:after {
-            transform: translate(-50%, -50%) scale(0.9);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Wortweise Navigation (nur Höhe als Maß)</title>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: sans-serif;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px #aaa3;
+      padding: 0 1vh; /* Abstand zu den Buttons */
+      height: 14vh;    /* Maximale Höhe! */
+      min-width: 96vh;     /* Breite nach Inhalt */
+      transform: rotate(90deg);
+      box-sizing: border-box;
+    }
+    .word-area {
+      flex: 1;
+      text-align: center;
+      font-size: 8vh;
+      color: #333;
+      margin: 0 10vh; /* Abstand zu Buttons */
+      min-width: 5vh;
+    }
+    button {
+      background: #eee;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      padding: 2vh 3vh;
+      font-size: 4vh;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin: 0 1vh;
+    }
+    button:active {
+      opacity: 0.7;
+    }
+  </style>
 </head>
 <body>
-    <div class="rotated-wrapper">
-        <div class="container">
-            <button class="nav-btn" id="prevBtn"></button>
-            <div id="wordArea" class="word-area"></div>
-            <button class="nav-btn" id="nextBtn"></button>
-        </div>
-    </div>
-    <span id="sentence" style="display:none;">Das ist ein schöner Tag für HTMX</span>
-    <script>
-        const sentence = document.getElementById("sentence").textContent.trim();
-        const words = sentence.split(" ");
-        let index = 0;
-
-        function updateDisplay() {
-            document.getElementById("wordArea").textContent = words[index];
-        }
-
-        document.getElementById("prevBtn").onclick = function() {
-            if (index > 0) index--;
-            updateDisplay();
-        };
-
-        document.getElementById("nextBtn").onclick = function() {
-            if (index < words.length - 1) index++;
-            updateDisplay();
-        };
-
-        updateDisplay();
-    </script>
+  <div class="container">
+    <button id="prevBtn">&lt;</button>
+    <div id="wordArea" class="word-area"></div>
+    <button id="nextBtn">&gt;</button>
+  </div>
+  <span id="sentence" style="display:none;">Paul ist ein Maulwurf und lebt im Wald unter der Erde. Dora ist eine Maus und lebt unter einem Baum nebenan. An einem Sommertag findet Dora eine Pusteblume.  Dora findet die Blume so wunderbar, dass sie Paul holt. Eine so tolle Blume begeistert Paul sehr. Paul und Dora fassen sich an der Hand und tanzen mit der Blume. Aber auf einmal kommt der Wind und pustet die Pusteblume weg. Alle Samen wehen weg. Dora und Paul sehen traurig auf den Halm. Nur ein einziger Samen ist auf dem Halm. Paul hat eine Idee. Als Maulwurf buddelt er mit seinen Pfoten eine Grube in den Boden. Dann legt er den Samen hinein. Beide warten Tag um Tag.  Und eines Tages geschieht das Wunder. Zuerst ist nur ein Blatt zu sehen. Dann ein kleiner Halm. Bald darauf eine Knospe. Und am Ende sogar eine ganze Pusteblume. Paul und Dora sind begeistert. Nun werden Paul und Dora besser auf ihre Blume aufpassen.</span>
+  <script>
+    const words = document.getElementById("sentence").textContent.trim().split(" ");
+    let index = 0;
+    const wordArea = document.getElementById("wordArea");
+    function updateDisplay() {
+      wordArea.textContent = words[index].toUpperCase();
+    }
+    document.getElementById("prevBtn").onclick = function() {
+      if (index > 0) index--;
+      updateDisplay();
+    };
+    document.getElementById("nextBtn").onclick = function() {
+      if (index < words.length - 1) index++;
+      updateDisplay();
+    };
+    updateDisplay();
+  </script>
 </body>
 </html>
