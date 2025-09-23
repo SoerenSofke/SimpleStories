@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Katzenbauch</title>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: sans-serif;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px #aaa3;
+      padding: 0 1vh; /* Abstand zu den Buttons */
+      height: 14vh;    /* Maximale Höhe! */
+      min-width: 96vh;     /* Breite nach Inhalt */
+      transform: rotate(90deg);
+      box-sizing: border-box;
+    }
+    .word-area {
+      flex: 1;
+      text-align: center;
+      font-size: 8vh;
+      color: #333;
+      margin: 0 0; /* Abstand zu Buttons */
+      min-width: 0;
+    }
+    button {
+      background: #eee;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      padding: 2vh 3vh;
+      font-size: 4vh;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin: 0 1vh;
+    }
+    button:active {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="prevBtn">&lt;</button>
+    <div id="wordArea" class="word-area"></div>
+    <button id="nextBtn">&gt;</button>
+  </div>
+  <span id="sentence" style="display:none;">
+    Ich bin Lea und habe eine Katze. Meine Katze heißt Minka. Minka hat graues Fell und blaue Augen und ein rotes Halsband. In den letzten Wochen wurde Minkas Bauch immer runder. Zuerst glaubte ich, dass Minka zu viel frisst. Doch als ich Minka gestreichelt habe, bewegte sich etwas in ihrem Bauch. Mama sagte, dass Minka Kinder bekommen wird. Zuerst konnte ich es kaum glauben. Doch jetzt freue ich mich sehr und kann die Geburt der Katzenkinder kaum erwarten. Jeden Tag nach dem Kindergarten gehe ich sofort zu Minka und streichle ihren Bauch. Aber heute kann ich Minka nicht finden. Ich suche im Garten und auf dem Dachboden. Auch im Keller ist sie nicht. Ganz aufgeregt laufe ich zu Mama. Mama nimmt mich in den Arm und beruhigt mich. Sie hat Minka im Schuppen hinter dem Haus gesehen. Dort hat sich Minka ein Nest gebaut. In diesem Nest wird Minka ihre Katzenkinder zur Welt bringen und braucht zu sehr viel Ruhe. Nur durch das Fenster darf ich ganz leise und vorsichtig schauen. Das mache ich morgen wieder. Doch jetzt gehe ich erst einmal ins Bett und schlafe.
+  <script>
+    const words = document.getElementById("sentence").textContent.trim().split(" ");
+    let index = 0;
+    const wordArea = document.getElementById("wordArea");
+    function updateDisplay() {
+      wordArea.textContent = words[index].toUpperCase();
+    }
+    document.getElementById("prevBtn").onclick = function() {
+      if (index > 0) index--;
+      updateDisplay();
+    };
+    document.getElementById("nextBtn").onclick = function() {
+      if (index < words.length - 1) index++;
+      updateDisplay();
+    };
+    updateDisplay();
+  </script>
+</body>
+</html>
